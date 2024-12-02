@@ -18,7 +18,7 @@ def send_email():
     try:
         print("Connecting to MailHog SMTP server...")
         # Connect to MailHog SMTP server (default: localhost:1025)
-        with smtplib.SMTP("localhost", 1025) as server:
+        with smtplib.SMTP("localhost", 25) as server:
             server.sendmail(sender, recipient, message.as_string())
         print("Email sent successfully!")
     except Exception as e:
