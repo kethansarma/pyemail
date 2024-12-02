@@ -1,4 +1,4 @@
-name: Sendmail with Python
+name: Send Email via Thunderbird
 
 on:
   push:
@@ -6,28 +6,17 @@ on:
       - main
 
 jobs:
-  test-email:
+  send_email:
     runs-on: ubuntu-latest
 
-    services:
-      sendmail:
-        image: catatnight/sendmail:latest
-        ports:
-          - 25:25 # Sendmail listens on port 25
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install Dependencies
+      - name: Build the Docker image
         run: |
-          python -m pip install --upgrade pip
-          pip install smtplib
+          docker build -t thunderbird-email .
 
-      - name: Run Python Script
-        run: python send_email.py
+      - name: Run the Docker container
+        run: |
+          docker run --rm thunderbird-email

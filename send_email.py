@@ -1,28 +1,29 @@
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import subprocess
+import time
 
-def send_email():
-    sender = "kethansarma@example.com"
-    recipient = "kethansarma@gmail.com"
-    subject = "Test Email from MailHog"
-    body = "This is a test email sent to MailHog using Python."
-
-    # Create email message
-    message = MIMEMultipart()
-    message["From"] = sender
-    message["To"] = recipient
-    message["Subject"] = subject
-    message.attach(MIMEText(body, "plain"))
-
+def send_email_thunderbird(recipient, subject, body):
+    # Construct the Thunderbird command with parameters
+    command = [
+        'thunderbird',
+        '--compose',
+        f'to={recipient},subject={subject},body={body}'
+    ]
+    
     try:
-        print("Connecting to MailHog SMTP server...")
-        # Connect to MailHog SMTP server (default: localhost:1025)
-        with smtplib.SMTP("localhost", 25) as server:
-            server.sendmail(sender, recipient, message.as_string())
-        print("Email sent successfully!")
-    except Exception as e:
-        print(f"Failed to send email: {e}")
+        # Run Thunderbird command to compose email
+        subprocess.run(command, check=True)
+        print("Email composing in Thunderbird...")
+        
+        # Wait for the user to manually send the email or set up auto-send (if configured)
+        time.sleep(5)  # Wait for a few seconds to give time for Thunderbird to open
+        print("You can now send the email in Thunderbird.")
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error while launching Thunderbird: {e}")
 
 if __name__ == "__main__":
-    send_email()
+    recipient = "recipient@example.com"  # Replace with recipient's email
+    subject = "Test Email"  # Email subject
+    body = "This is a test email sent via Thunderbird using Python."  # Email body
+    
+    send_email_thunderbird(recipient, subject, body)
