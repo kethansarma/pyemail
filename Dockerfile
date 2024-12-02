@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-COPY send_email_thunderbird.py /root/send_email_thunderbird.py
+COPY send_email.py /root/send_email.py
 
 WORKDIR /root
 
-CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "python3", "send_email_thunderbird.py"]
+CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "python3", "send_email.py"]
