@@ -1,26 +1,18 @@
-# Use Ubuntu as base image
 FROM ubuntu:20.04
 
-# Set environment variables to avoid interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Thunderbird and required dependencies
 RUN apt-get update && apt-get install -y \
     thunderbird \
     dbus-x11 \
     x11-utils \
+    xvfb \
     python3 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install necessary Python libraries
-# RUN pip3 install smtplib email
+COPY send_email_thunderbird.py /root/send_email_thunderbird.py
 
-# Copy the Python script into the container
-COPY send_email.py /root/send_email.py
-
-# Set the working directory
 WORKDIR /root
 
-# Command to run the Python script (for now, it will be an empty placeholder)
-CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "python3", "send_email.py"]
+CMD ["xvfb-run", "--auto-servernum", "--server-args='-screen 0 1024x768x24'", "python3", "send_email_thunderbird.py"]
