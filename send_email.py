@@ -22,7 +22,7 @@ def send_email_thunderbird(recipient, subject, body):
         print(f"Error while launching Thunderbird: {e}")
 
 if __name__ == "__main__":
-    recipient = "recipient@example.com"  # Replace with recipient's email
+    recipient = "kethansarma@gmail.com"  # Replace with recipient's email
     subject = "Test Email"  # Email subject
     body = "This is a test email sent via Thunderbird using Python."  # Email body
     

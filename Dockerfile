@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install smtplib email
 
 # Copy the Python script into the container
-COPY send_email_thunderbird.py /root/send_email_thunderbird.py
+COPY send_email.py /root/send_email.py
 
 # Set the working directory
 WORKDIR /root
 
 # Command to run the Python script (for now, it will be an empty placeholder)
-CMD ["python3", "send_email_thunderbird.py"]
+CMD ["python3", "send_email.py"]
