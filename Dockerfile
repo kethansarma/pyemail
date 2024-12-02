@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install necessary Python libraries
-RUN pip3 install smtplib email
+# RUN pip3 install smtplib email
 
 # Copy the Python script into the container
 COPY send_email.py /root/send_email.py
