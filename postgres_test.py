@@ -49,7 +49,7 @@ def query_and_email():
 
         send_email(
             sender_email="811cff001@smtp-brevo.com",  # Replace with your Brevo email
-            sender_password="sXtgLB59dqQN0TDa",  # Replace with your Brevo API key
+            sender_password="password",  # Replace with your Brevo API key
             recipient_email="example@gmail.com",
             subject="Count Email",
             body=f"count of rows {result} in table_name",
